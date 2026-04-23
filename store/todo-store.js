@@ -22,6 +22,11 @@ export const useTodoStore = create(
           ),
         })),
 
+      removeTodo: (id) =>
+        set((state) => ({
+          todos: state.todos.filter((todo) => todo._id != id),
+        })),
+
       setFilter: (filter) => set({ filter }),
       setLoading: (isLoading) => set({ isLoading }),
       filteredTodos: () => {

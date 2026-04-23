@@ -77,3 +77,31 @@ export async function toggleTodo(id) {
     };
   }
 }
+
+export async function deleteTodo(id) {
+  try {
+    await connectDB();
+
+    const todo = await Todo.findByIdAndDelete(id);
+
+    if (!todo) {
+      return {
+        success: false,
+        error: "Todo not found",
+      };
+    }
+
+    revalidatePath("/");
+
+    return {
+      success: true,
+      data: JSON.parse(JSON.stringify(todo)),
+    };
+  } catch (error) {
+    console.error("Error deleting todo", error);
+    return {
+      success: false,
+      error: "Failed to delete todo",
+    };
+  }
+}
