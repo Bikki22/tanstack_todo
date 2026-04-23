@@ -117,7 +117,7 @@ const TodoForm = () => {
               <Button
                 type="button"
                 variant="outline"
-                onCLick={() => {
+                onClick={() => {
                   setIsOpen(false);
                   form.reset();
                 }}

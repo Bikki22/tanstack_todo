@@ -1,4 +1,6 @@
+import TodoFilter from "@/components/todo-filter";
 import TodoForm from "@/components/todo-form";
+import TodoList from "@/components/todo-list";
 import { connectDB } from "@/lib/db";
 import { Button } from "@base-ui/react";
 import Image from "next/image";
@@ -18,6 +20,8 @@ export default async function Home() {
         </header>
         <main>
           <TodoForm />
+          <TodoFilter />
+          <TodoList />
         </main>
       </div>
 
