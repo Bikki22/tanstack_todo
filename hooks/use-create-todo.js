@@ -1,4 +1,4 @@
-import { createTodo, getTodos } from "@/actions/todo-actions";
+import { createTodo, getTodos, toggleTodo } from "@/actions/todo-actions";
 import { useTodoStore } from "@/store/todo-store";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -43,6 +43,22 @@ export function useTodos() {
       }
 
       throw new Error(result.error);
+    },
+  });
+}
+
+export function useToggleTodo() {
+  const queryClient = useQueryClient();
+
+  const updateTodoInStore = useTodoStore((state) => state.updateTodo);
+
+  return useMutation({
+    mutationFn: (id) => toggleTodo(id),
+    onSuccess: (result, id) => {
+      if (result.success) {
+        updateTodoInStore(id, { completed: result.data.completed });
+        queryClient.invalidateQueries({ queryKey: todoKeys.lists() });
+      }
     },
   });
 }
